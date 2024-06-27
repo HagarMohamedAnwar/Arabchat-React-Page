@@ -1,14 +1,14 @@
-import React from 'react';
-import Navigation from './Navigationbar.js';
-import './Chatbot.css';
+import React from "react";
+import Navigation from "./Navigationbar.js";
+import "./Arabchat.css";
 
-class Chatbot extends React.Component {
+class Arabchat extends React.Component {
   constructor(props) {
     super(props);
     this.messagesContainerRef = React.createRef();
     this.state = {
       messages: [],
-      userInput: ''
+      userInput: "",
     };
   }
 
@@ -21,12 +21,18 @@ class Chatbot extends React.Component {
     const { userInput, messages } = this.state;
     const trimmedInput = userInput.trim();
     // Check if the trimmed input is not empty
-    if (trimmedInput === '') {
+    if (trimmedInput === "") {
       return;
     }
     // Add the user's message to the chat interface immediately
-    const updatedMessages = [{ sender: 'User', text: trimmedInput }, ...messages]; // Add new messages at the beginning
-    this.setState({ messages: updatedMessages, userInput: '' }, this.scrollToBottom);
+    const updatedMessages = [
+      { sender: "User", text: trimmedInput },
+      ...messages,
+    ]; // Add new messages at the beginning
+    this.setState(
+      { messages: updatedMessages, userInput: "" },
+      this.scrollToBottom
+    );
     // Call the method to handle the chatbot's response after a delay (simulating a response time)
     setTimeout(() => {
       this.handleBotResponse(trimmedInput);
@@ -37,7 +43,7 @@ class Chatbot extends React.Component {
     // Placeholder for bot response (replace with your chatbot logic)
     const botResponse = "Hello. What can I do for you?";
     const { messages } = this.state;
-    const updatedMessages = [{ sender: 'Bot', text: botResponse }, ...messages]; // Add new messages at the beginning
+    const updatedMessages = [{ sender: "Bot", text: botResponse }, ...messages]; // Add new messages at the beginning
     this.setState({ messages: updatedMessages }, this.scrollToBottom);
   };
 
@@ -59,7 +65,7 @@ class Chatbot extends React.Component {
   formatMessageText = (text) => {
     const maxLength = 50; // Maximum length for messages
     if (text.length > maxLength) {
-      return text.slice(0, maxLength) + '\n' + text.slice(maxLength);
+      return text.slice(0, maxLength) + "\n" + text.slice(maxLength);
     }
     return text;
   };
@@ -69,11 +75,19 @@ class Chatbot extends React.Component {
     return (
       <div className="App">
         <Navigation />
-        <div className="chatbot-container">
-          <div className="messages-container" ref={this.messagesContainerRef}>
+        <div className="arabchat-container">
+          <div
+            className="arabmessages-container"
+            ref={this.messagesContainerRef}
+          >
             {messages.map((message, index) => (
-              <div key={index} className={`message ${message.sender.toLowerCase()}`}>
-                <div className="message-text">{this.formatMessageText(message.text)}</div>
+              <div
+                key={index}
+                className={`message ${message.sender.toLowerCase()}`}
+              >
+                <div className="message-text">
+                  {this.formatMessageText(message.text)}
+                </div>
               </div>
             ))}
           </div>
@@ -84,7 +98,9 @@ class Chatbot extends React.Component {
               onChange={this.handleChange}
               placeholder="Type your message..."
             />
-            <button type="submit">Send</button>
+            <button className="submit" type="submit">
+              Send
+            </button>
           </form>
         </div>
       </div>
@@ -92,4 +108,4 @@ class Chatbot extends React.Component {
   }
 }
 
-export default Chatbot;
+export default Arabchat;
